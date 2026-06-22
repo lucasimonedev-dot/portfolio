@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Il tuo nome — Front-end Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Syne:wght@700&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0f0f0f;
+      --surface: #181818;
+      --border: #2a2a2a;
+      --text: #e8e6e0;
+      --muted: #888;
+      --accent: #f4c921;
+      --accent-dark: #9eba47;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --max: 760px;
+      --gap: clamp(3rem, 8vw, 6rem);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem clamp(1.5rem, 5vw, 3rem);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: color 0.2s;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 540px) {
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        padding: 1.5rem clamp(1.5rem, 5vw, 3rem);
+      }
+
+      .nav-links.aperto {
+        display: flex;
+      }
+    }
+
+    /* ── LAYOUT ── */
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 3rem);
+    }
+
+    section {
+      padding: var(--gap) 0;
+    }
+
+    section+section {
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      padding-top: clamp(4rem, 12vw, 8rem);
+      padding-bottom: var(--gap);
+    }
+
+    .hero-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 7vw, 4.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .evidenziato {
+      color: var(--bg);
+      background: var(--accent);
+      padding: 0 6px;
+      border-radius: 3px;
+    }
+
+    .hero-bio {
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #0f0f0f;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .hero-cta:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+
+
+    /* ── SEZIONE TITOLI ── */
+    .section-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+    }
+
+    .skill-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.7rem 1rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .skill-chip:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* ── PROGETTI ── */
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.4rem 1.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: #444;
+    }
+
+    .project-title {
+      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      max-width: 460px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 0.8rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      background: #222;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--muted);
+    }
+
+    .project-link {
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      color: var(--accent);
+      border: 1px solid currentColor;
+      padding: 0.4rem 0.9rem;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .project-link:hover {
+      background: var(--accent);
+      color: #0f0f0f;
+    }
+
+    /* ── CONTATTI ── */
+    .contact-text {
+      color: var(--muted);
+      margin-bottom: 1.8rem;
+      max-width: 460px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.3rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.88rem;
+      color: var(--muted);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .contact-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: #444;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 540px) {
+      .project-card {
+        flex-direction: column;
+      }
+
+      .project-link {
+        align-self: flex-start;
+      }
+
+      .nav-links {
+        gap: 1.2rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <span class="nav-logo">Luca Simone</span>
+    <button class="nav-toggle" aria-label="Apri menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="#chi-sono">Chi sono</a></li>
+      <li><a href="#progetti">Progetti</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero">
+      <p class="hero-label">Front-end developer</p>
+      <h1>Ciao, sono<br /><em>Luca Simone</em></h1>
+      <p class="hero-bio">
+        Creo interfacce web pulite e funzionali. Sono in crescita, appassionato di codice
+        e sempre curioso di imparare qualcosa di nuovo.
+      </p>
+      <a href="#contatti" class="hero-cta">Parliamo →</a>
+    </section>
+
+    <!-- CHI SONO -->
+    <section id="chi-sono">
+      <p class="section-label">Chi sono</p>
+      <h2>Un po' di me</h2>
+      <p style="color: var(--muted); max-width: 520px; margin-bottom: 2rem;">
+        Sono [la tua città], appassionato di web da [anno]. Ho iniziato con HTML e CSS
+        e ora sto espandendo le mie competenze su JavaScript. Quando non studio codice,
+        [scrivi qualcosa di personale: cosa fai, cosa ti piace].
+      </p>
+
+      <div class="skills-grid">
+        <div class="skill-chip">HTML5</div>
+        <div class="skill-chip">CSS3</div>
+        <div class="skill-chip">Flexbox</div>
+        <div class="skill-chip">CSS Grid</div>
+        <div class="skill-chip">JavaScript</div>
+        <div class="skill-chip">Git</div>
+        <div class="skill-chip">GitHub Pages</div>
+        <div class="skill-chip">Design responsivo</div>
+      </div>
+    </section>
+
+    <!-- PROGETTI -->
+    <section id="progetti">
+      <p class="section-label">Progetti</p>
+      <h2>Cosa ho costruito</h2>
+
+      <div class="projects-list">
+
+        <div class="project-card">
+          <div>
+            <div class="project-title">Questo portfolio</div>
+            <p class="project-desc">Il sito che stai guardando. Costruito con HTML e CSS puri, senza framework.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+            </div>
+          </div>
+          <a href="#" class="project-link">Vedi →</a>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <div class="project-title">Prossimo progetto</div>
+            <p class="project-desc">Qui aggiungerai il tuo secondo progetto — anche piccolo va benissimo.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JS</span>
+            </div>
+          </div>
+          <a href="#" class="project-link">Presto →</a>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <div class="project-title">Collaborazioni con brand</div>
+            <p class="project-desc">Un progetto collaborativo con un brand.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JS</span>
+            </div>
+          </div>
+          <a href="#" class="project-link">Presto →</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTATTI -->
+    <section id="contatti">
+      <p class="section-label">Contatti</p>
+      <h2>Scriviamoci</h2>
+      <p class="contact-text">
+        Sono disponibile per collaborazioni, progetti freelance o semplicemente per
+        fare due chiacchiere di codice.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:lucadev@gmail.com" class="contact-btn">✉ lucadev@gmail.com</a>
+        <a href="https://github.com/tuousername" target="_blank" rel="noopener" class="contact-btn">⌥ GitHub</a>
+        <a href="https://linkedin.com/in/tuousername" target="_blank" rel="noopener" class="contact-btn">in LinkedIn</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Fatto con HTML e CSS da <strong>Luca Simone</strong> · 2026
+  </footer>
+
+  <!--  <script>
+    // Sessione JS #1 — selezionare elementi e cambiarli
+    const titolo = document.querySelector('h1 em');
+    console.log(titolo);         // cosa vedi nella console?
+    titolo.style.color = 'red';  // funziona? poi rimetti var(--accent)
+
+    // Sessione JS #2 — reagire a un click
+    const bottone = document.querySelector('.hero-cta');
+
+    bottone.addEventListener('click', function () {
+      const titolo = document.querySelector('h1 em');
+      /* titolo.textContent = 'un grande!'; */
+      titolo.style.color = 'green';
+    });
+
+  </script> -->
+
+  <!-- <script>
+    const bottone = document.querySelector('.hero-cta');
+    const titolo = document.querySelector('h1 em');
+
+    bottone.addEventListener('click', function () {
+      titolo.classList.toggle('evidenziato');
+    });
+  </script> -->
+
+  <script>
+   const toggle = document.querySelector('.nav-toggle');
+   const links = document.querySelector('.nav-links');
+
+   toggle.addEventListener('click', function () {
+     links.classList.toggle('aperto');
+   });
+  </script>
+  
+  <!-- 
+  Sessione JS #1: ho usato querySelector per selezionare h1 em.
+  PROSSIMO PASSO: usare addEventListener per reagire a un click.
+-->
+
+  <!-- 
+  Sessione JS #2: "Ho usato addEventListener su .hero-cta. 
+  PROSSIMO PASSO: è cambiare il testo o lo stile di un elemento dentro la funzione."
+-->
+
+  <!-- 
+  Sessione JS #3: "Ho cambiato textContent e style dentro un click. 
+  Il prossimo passo è usare classList per aggiungere e rimuovere classi CSS."
+-->
+
+  <!-- 
+  Sessione JS #4: "Ho usato classList.toggle per aggiungere e rimuovere una classe CSS. 
+  Il prossimo passo è un progetto reale: un menu mobile che si apre e chiude"
+-->
+</body>
+
+</html>
