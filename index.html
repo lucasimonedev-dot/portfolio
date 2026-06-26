@@ -483,7 +483,7 @@
     Fatto con HTML e CSS da <strong>Luca Simone</strong> · 2026
   </footer>
 
-  <!--  <script>
+    <!--  <script>
     // Sessione JS #1 — selezionare elementi e cambiarli
     const titolo = document.querySelector('h1 em');
     console.log(titolo);         // cosa vedi nella console?
@@ -509,14 +509,104 @@
     });
   </script> -->
 
-  <script>
-   const toggle = document.querySelector('.nav-toggle');
-   const links = document.querySelector('.nav-links');
+  <!-- <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
 
-   toggle.addEventListener('click', function () {
-     links.classList.toggle('aperto');
-   });
-  </script>
+    toggle.addEventListener('click', function () {
+      links.classList.toggle('aperto');
+    });
+
+    const btnInvia = document.querySelector('#btn-invia');
+
+    btnInvia.addEventListener('click', function () {
+      const nome = document.querySelector('#campo-nome').value;
+      const testo = document.querySelector('#campo-messaggio').value;
+      const feedback = document.querySelector('#messaggio-ok');
+
+      if (nome === '' || testo === '') {
+        alert('Compila tutti i campi!');
+        return;
+      }
+
+      console.log('Nome:', nome);
+      console.log('Messaggio:', testo);
+
+      feedback.style.display = 'block';
+    });
+ -->
+  <!-- 
+    /*     const chip = document.querySelectorAll('.skill-chip');
+    
+        chip.forEach(function (elemento) {
+          elemento.addEventListener('click', function () {
+            elemento.style.borderColor = 'var(--accent)';
+            elemento.style.color = 'var(--text)';
+          });
+        });
+     */ -->
+  <!-- <scrip>
+    const skills = [
+    'HTML5', 'CSS3', 'Flexbox', 'CSS Grid',
+    'JavaScript', 'Git', 'GitHub Pages', 'Design responsivo'
+    ];
+
+    const griglia = document.querySelector('#skills-grid');
+
+    skills.forEach(function (skill) {
+    const chip = document.createElement('div');
+    chip.classList.add('skill-chip');
+    chip.textContent = skill;
+    griglia.appendChild(chip);
+    });
+    </script>
+        <script>
+      const progetti = [
+        {
+          titolo: 'Portfolio Personale',
+          descrizione: 'Non solo un portfolio, ma una vetrina delle mie competenze e dei miei progetti. Realizzato con HTMLCSS e JavaScript',
+          tag: ['HTML', 'CSS'],
+          link: '#'
+        },
+        {
+          titolo: 'To-Do List',
+          descrizione: 'Un\'applicazione web per gestire le attività quotidiane. Permette di aggiungere, modificare e cancellare task.',
+          tag: ['HTML', 'CSS', 'JavaScript'],
+          link: '#'
+        }
+      ];
+
+      const lista = document.querySelector('#projects-list');
+
+      progetti.forEach(function (progetto) {
+        const card = document.createElement('div');
+        card.classList.add('project-card');
+        
+        card.innerHTML = `
+          <div>
+            <div class="project-title">${progetto.titolo}</div>
+            <div class="project-desc">${progetto.descrizione}</div>
+            <div class="project-tags">
+              ${progetto.tag.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+          <a href="${progetto.link}" class="project-link" target="_blank">Vedi progetto</a>
+        `;
+        lista.appendChild(card);
+      });
+    </script> -->
+
+    <script>
+      fetch('https://jsonplaceholder.typicode.com/users/1')
+        .then(function (risposta) {
+          return risposta.json();
+        })
+        .then(function (dati) {
+          console.log(dati);
+          console.log('Nome:', dati.name);
+          console.log('Email:', dati.email);
+        });
+    </script>
   
   <!-- 
   Sessione JS #1: ho usato querySelector per selezionare h1 em.
